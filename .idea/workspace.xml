@@ -1,17 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
+    <generated />
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" CONFIG_NAME="Debug" />
+    </configurations>
+  </component>
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="441cd7e0-af5e-4c31-9a0a-4564d8be400c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -27,10 +37,12 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="cf.first.check.clang-format" value="false" />
     <property name="ignore.virus.scanning.warn.message" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
-    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+    <property name="settings.editor.selected.configurable" value="language.rust" />
   </component>
   <component name="RunManager">
     <configuration name="Run debukit" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
@@ -66,39 +78,74 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1587833915570</updated>
+      <workItem from="1587883549754" duration="101000" />
+      <workItem from="1587883665861" duration="577000" />
+      <workItem from="1587884255855" duration="545000" />
+      <workItem from="1587884814481" duration="541000" />
     </task>
     <servers />
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
   <component name="WindowStateProjectService">
-    <state x="420" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587834757558">
-      <screen x="0" y="0" width="3840" height="2120" />
-    </state>
-    <state x="420" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834757558" />
-    <state width="1872" height="266" key="GridCell.Tab.0.bottom" timestamp="1587834763087">
-      <screen x="0" y="0" width="3840" height="2120" />
-    </state>
-    <state width="1872" height="266" key="GridCell.Tab.0.bottom/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
-    <state width="1872" height="266" key="GridCell.Tab.0.center" timestamp="1587834763087">
-      <screen x="0" y="0" width="3840" height="2120" />
-    </state>
-    <state width="1872" height="266" key="GridCell.Tab.0.center/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
-    <state width="1872" height="266" key="GridCell.Tab.0.left" timestamp="1587834763087">
-      <screen x="0" y="0" width="3840" height="2120" />
-    </state>
-    <state width="1872" height="266" key="GridCell.Tab.0.left/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
-    <state width="1872" height="266" key="GridCell.Tab.0.right" timestamp="1587834763087">
-      <screen x="0" y="0" width="3840" height="2120" />
-    </state>
-    <state width="1872" height="266" key="GridCell.Tab.0.right/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
-    <state x="1063" y="502" key="SettingsEditor" timestamp="1587882232818">
+    <state x="1742" y="305" key="#SSH_Configurations" timestamp="1587884659670">
       <screen x="0" y="0" width="3072" height="1688" />
     </state>
-    <state x="1063" y="502" key="SettingsEditor/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587882232818" />
+    <state x="1742" y="305" key="#SSH_Configurations/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884659670" />
+    <state x="336" y="149" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587884783658">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="336" y="149" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884783658" />
+    <state x="420" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834757558" />
+    <state x="1930" y="292" key="FileChooserDialogImpl" timestamp="1587885324761">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1930" y="292" key="FileChooserDialogImpl/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587885324761" />
+    <state width="1493" height="493" key="GridCell.Tab.0.bottom" timestamp="1587884265692">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="1493" height="493" key="GridCell.Tab.0.bottom/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884265692" />
+    <state width="1872" height="266" key="GridCell.Tab.0.bottom/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1493" height="493" key="GridCell.Tab.0.center" timestamp="1587884265692">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="1493" height="493" key="GridCell.Tab.0.center/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884265692" />
+    <state width="1872" height="266" key="GridCell.Tab.0.center/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1493" height="493" key="GridCell.Tab.0.left" timestamp="1587884265691">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="1493" height="493" key="GridCell.Tab.0.left/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884265691" />
+    <state width="1872" height="266" key="GridCell.Tab.0.left/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1493" height="493" key="GridCell.Tab.0.right" timestamp="1587884265692">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state width="1493" height="493" key="GridCell.Tab.0.right/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884265692" />
+    <state width="1872" height="266" key="GridCell.Tab.0.right/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state x="1659" y="182" key="SettingsEditor" timestamp="1587885325727">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1659" y="182" key="SettingsEditor/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587885325727" />
     <state x="538" y="207" key="SettingsEditor/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834649922" />
+    <state x="1791" y="340" key="ftp.server.browser" timestamp="1587884886941">
+      <screen x="0" y="0" width="3072" height="1688" />
+    </state>
+    <state x="1791" y="340" key="ftp.server.browser/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587884886941" />
     <state x="630" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1587834682178">
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
     <state x="630" y="235" width="672" height="678" key="search.everywhere.popup/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834682178" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/src/main.rs</url>
+          <line>6</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand>
