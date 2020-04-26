@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CargoProjects">
+    <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="441cd7e0-af5e-4c31-9a0a-4564d8be400c" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="904d614o" />
+  </component>
+  <component name="ProjectId" id="1b2d2amCFxU2zIIUITT1ke67v4h" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ignore.virus.scanning.warn.message" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Run debukit" type="CargoCommandRunConfiguration" factoryName="Cargo Command" temporary="true">
+      <option name="channel" value="DEFAULT" />
+      <option name="command" value="run --package debukit --bin debukit" />
+      <option name="allFeatures" value="false" />
+      <option name="nocapture" value="false" />
+      <option name="emulateTerminal" value="false" />
+      <option name="backtrace" value="SHORT" />
+      <option name="workingDirectory" value="file://$PROJECT_DIR$" />
+      <envs />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo Command.Run debukit" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="RustProjectSettings">
+    <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />
+    <option name="version" value="2" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="441cd7e0-af5e-4c31-9a0a-4564d8be400c" name="Default Changelist" comment="" />
+      <created>1587833915570</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1587833915570</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="420" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1587834757558">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state x="420" y="187" key="#com.intellij.execution.impl.EditConfigurationsDialog/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834757558" />
+    <state width="1872" height="266" key="GridCell.Tab.0.bottom" timestamp="1587834763087">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state width="1872" height="266" key="GridCell.Tab.0.bottom/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1872" height="266" key="GridCell.Tab.0.center" timestamp="1587834763087">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state width="1872" height="266" key="GridCell.Tab.0.center/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1872" height="266" key="GridCell.Tab.0.left" timestamp="1587834763087">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state width="1872" height="266" key="GridCell.Tab.0.left/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state width="1872" height="266" key="GridCell.Tab.0.right" timestamp="1587834763087">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state width="1872" height="266" key="GridCell.Tab.0.right/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
+    <state x="538" y="207" key="SettingsEditor" timestamp="1587834649922">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state x="538" y="207" key="SettingsEditor/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834649922" />
+    <state x="630" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1587834682178">
+      <screen x="0" y="0" width="3840" height="2120" />
+    </state>
+    <state x="630" y="235" width="672" height="678" key="search.everywhere.popup/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834682178" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand>
+      <path>
+        <item name="debukit" type="b2602c69:ProjectViewProjectNode" />
+        <item name="debukit" type="462c0819:PsiDirectoryNode" />
+      </path>
+    </expand>
+    <select />
+  </component>
+</project>
