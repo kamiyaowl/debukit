@@ -1,26 +1,39 @@
 extern crate cssparser;
-use cssparser::{Parser, ParserInput};
+use cssparser::{Parser, ParserInput, Token};
 
 #[derive(Debug, Clone, PartialEq)]
 pub struct Style {}
 
 impl Style {
+    fn parse<'i, 't, E>(parser: &mut Parser<'i, 't>) -> Result<(), cssparser::ParseError<'i, E>> {
+        while let Ok(token) = parser.next() {
+            match  token {
+                Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
+                    println!("==========");
+
+                    // 子要素を再帰して解析する
+                    let nested: Result<(), cssparser::ParseError<'_, ()>>  =
+                        parser.parse_nested_block(|p: &mut Parser| Style::parse(p)); // TODO: error typeをまともにする
+                    
+                    println!("==========\n");
+                },
+                Token::Function(name) => {
+                    println!("{:?}({})", token, name);
+                }
+                _ => {
+                    println!("{:?}", token);
+                },
+            }
+        }
+        Ok(()) // TODO: 値を返す
+    }
     pub fn parse_all(css_text: &str) -> Self {
         let mut dst = Style {};
 
         let mut parser_in = ParserInput::new(css_text);
         let mut parser = Parser::new(&mut parser_in);
 
-        // TODO: CSS Selectorと属性の紐付け
-        // Ident, Delimを束ねてSelectorを構成する
-        // CurlyBacketBlockを展開して子要素としてまとめる
-        loop {
-            let hoge = parser.next();
-            println!("{:?}", hoge);
-            if hoge.is_err() {
-                break;
-            }
-        }
+        let result: Result<(), cssparser::ParseError<'_, ()>> = Style::parse(&mut parser);
 
         dst
     }
