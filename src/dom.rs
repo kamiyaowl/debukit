@@ -8,9 +8,9 @@ pub struct Dom {
 
 impl Dom {
     pub fn parse_all(html_text: &str) -> Self {
-        let document = Html::parse_document(html_text);
+        let body = Html::parse_document(html_text);
         Dom {
-            body: document,
+            body: body,
         }
     }
 }
@@ -21,6 +21,6 @@ mod tests {
     #[test]
     fn test_parse_all() {
         let result = Dom::parse_all("<!doctype html><html><head><title>test_title</title></head><body><h1>hello</h1></body></html>");
-        println!("{:?}", result)
+        println!("#DOM\n{:?}", result)
     }
 }
