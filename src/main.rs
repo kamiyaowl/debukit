@@ -1,9 +1,10 @@
-use debukit::communicator;
+use std::fs;
+
+use debukit::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let test_url = "https://kamiyaowl.github.io/";// "http://histo.io/";
-    let html_text = communicator::get_blocking(test_url)?;
-    println!("#html: {}", html_text);
-
+    // let html_text = communicator::get_blocking("https://kamiyaowl.github.io/")?;
+    let html_text = fs::read_to_string("./testdata/test1.html")?;
+    println!("{}", html_text);
     Ok(())
 }

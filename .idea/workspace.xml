@@ -4,7 +4,10 @@
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="441cd7e0-af5e-4c31-9a0a-4564d8be400c" name="Default Changelist" comment="" />
+    <list default="true" id="441cd7e0-af5e-4c31-9a0a-4564d8be400c" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.rs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,9 +90,10 @@
       <screen x="0" y="0" width="3840" height="2120" />
     </state>
     <state width="1872" height="266" key="GridCell.Tab.0.right/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834763087" />
-    <state x="538" y="207" key="SettingsEditor" timestamp="1587834649922">
-      <screen x="0" y="0" width="3840" height="2120" />
+    <state x="1063" y="502" key="SettingsEditor" timestamp="1587882232818">
+      <screen x="0" y="0" width="3072" height="1688" />
     </state>
+    <state x="1063" y="502" key="SettingsEditor/-3840.0.2560.1407/3840.0.1440.2520/0.0.3072.1688@0.0.3072.1688" timestamp="1587882232818" />
     <state x="538" y="207" key="SettingsEditor/-3840.0.2560.1413/0.0.3840.2120/3840.0.1440.2520@0.0.3840.2120" timestamp="1587834649922" />
     <state x="630" y="235" width="672" height="678" key="search.everywhere.popup" timestamp="1587834682178">
       <screen x="0" y="0" width="3840" height="2120" />
