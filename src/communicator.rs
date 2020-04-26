@@ -19,7 +19,7 @@ mod tests {
     use super::Communicator;
  
     #[test]
-    fn test_get_blocking() -> Result<(), Box<dyn std::error::Error>> {
+    fn test_html_get_blocking() -> Result<(), Box<dyn std::error::Error>> {
         let text = Communicator::get_blocking("https://kamiyaowl.github.io/")?;
         println!("{}", text);
         Ok(())

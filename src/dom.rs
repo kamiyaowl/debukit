@@ -19,7 +19,7 @@ impl Dom {
 mod tests {
     use super::Dom;
     #[test]
-    fn test_parse_all() {
+    fn test_dom_parse_all() {
         let result = Dom::parse_all("<!doctype html><html><head><title>test_title</title></head><body><h1>hello</h1></body></html>");
         println!("#DOM\n{:?}", result)
     }
