@@ -1,6 +1,7 @@
 extern crate scraper;
 use scraper::Html;
 
+/// htmlからDOMにしたものを保持します
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Dom {
     pub body: Html, // TODO: scraper非依存にするなら自作の構造で置き換え

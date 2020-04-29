@@ -1,39 +1,97 @@
 extern crate cssparser;
 use cssparser::{Parser, ParserInput, Token};
 
+/// CSSを展開して、SelectorごとのStyle指定に置き換えた内容を保持します
 #[derive(Debug, Clone, PartialEq)]
-pub struct Style {}
+pub struct Style<'a> {
+    pub block_assigns: Vec<BlockAssign<'a>>,
+}
 
-impl Style {
-    fn parse<'i, 't, E>(parser: &mut Parser<'i, 't>) -> Result<(), cssparser::ParseError<'i, E>> {
+/// 1selectorに対するStyle指定を示す
+/// h1 { /* ........ */ }
+/// ^    ^^^^^^^^^^^^^^
+/// |                 |
+/// selector          assigns
+#[derive(Debug, Clone, PartialEq)]
+pub struct BlockAssign<'a> {
+    pub selectors: Vec<Token<'a>>,
+    pub assigns: Vec<Assign<'a>>,
+}
+
+impl<'a> BlockAssign<'a> {
+    pub fn new() -> Self {
+        BlockAssign {
+            selectors: Vec::new(),
+            assigns: Vec::new(),
+        }
+    }
+}
+
+/// 1Style指定を示す
+/// border: solid 2px green
+/// ^       ^^^^^^^^^^^^^^^
+/// |       |
+/// key     values
+#[derive(Debug, Clone, PartialEq)]
+pub struct Assign<'a> {
+    pub keys: Vec<Token<'a>>, // 多分要素1にしかならない
+    pub values: Vec<Token<'a>>,
+}
+
+impl<'a> Assign<'a> {
+    pub fn new() -> Self {
+        Assign {
+            keys: Vec::new(),
+            values: Vec::new(),
+        }
+    }
+}
+
+impl<'a> Style<'a> {
+    fn parse_assign(parser: &mut Parser) -> Option<Assign<'a>> {
+        let mut assign = Assign::new();
+
+        if assign.keys.len() > 0 { Some(assign) } else { None }
+    }
+
+    /// CSSのSelector含む1Blockを解析して返します
+    /// 解析に失敗した場合、終端に達した場合はNoneが返ります
+    fn parse_block(parser: &mut Parser) -> Option<BlockAssign<'a>> {
+        let mut block_assign: BlockAssign<'a> = BlockAssign::new();
+
         while let Ok(token) = parser.next() {
-            match  token {
+            match token {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
-                    println!("==========");
-
+                    debug_assert!(block_assign.selectors.len() > 0); // selectorは存在するはず
                     // 子要素を再帰して解析する
-                    let nested: Result<(), cssparser::ParseError<'_, ()>>  =
-                        parser.parse_nested_block(|p: &mut Parser| Style::parse(p)); // TODO: error typeをまともにする
-                    
-                    println!("==========\n");
+                    // let nested: Result<(), cssparser::ParseError<'_, ()>>  =
+                    //     parser.parse_nested_block(|p: &mut Parser| Style::parse(p)); // TODO: error typeをまともにする
                 },
                 Token::Function(name) => {
                     println!("{:?}({})", token, name);
+                    debug_assert!(false); // selectorにfunctionは存在しないはず...
                 }
+                // selector要素をすべて連結しとく
                 _ => {
-                    println!("{:?}", token);
+                    block_assign.selectors.push(token.clone()); // TODO: cloneするほどかは微妙
                 },
             }
         }
-        Ok(()) // TODO: 値を返す
+
+        if block_assign.selectors.len() > 0 { Some(block_assign) } else { None }
     }
-    pub fn parse_all(css_text: &str) -> Self {
-        let mut dst = Style {};
+    pub fn new(css_text: &str) -> Self {
+        let mut dst = Style {
+            block_assigns: Vec::new(),
+        };
 
         let mut parser_in = ParserInput::new(css_text);
         let mut parser = Parser::new(&mut parser_in);
 
-        let result: Result<(), cssparser::ParseError<'_, ()>> = Style::parse(&mut parser);
+        // 先頭から順番に解析するだけ
+        while let Some(block) = Style::parse_block(&mut parser) {
+            dst.block_assigns.push(block);
+        }
 
         dst
     }
@@ -44,7 +102,7 @@ mod tests {
     use super::Style;
 
     #[test]
-    fn test_style_parse_all() {
+    fn test_style_new() {
         let css_text = r#"
             h1 {
                 scale: 200%;
@@ -64,7 +122,7 @@ mod tests {
                 background-color: green;
             }
         "#;
-        let result = Style::parse_all(css_text);
-        println!("#Style\n{:?}", result);
+        let style = Style::new(css_text);
+        println!("#Style\n{:?}", style);
     }
 }

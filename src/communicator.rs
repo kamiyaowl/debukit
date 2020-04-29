@@ -1,5 +1,6 @@
 extern crate reqwest;
 
+/// http/https通信関係全般を管理します、これには通信時のCache管理も含みます
 pub struct Communicator {
     // TODO: cacheの実装
 }
