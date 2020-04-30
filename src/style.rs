@@ -56,13 +56,10 @@ impl<'a> Style<'a> {
         while let Ok(token) = parser.next() {
             println!("#AssignToken {:?}", token);
             match token {
-                Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
-                },
-                Token::Function(name) => {
-                }
+                Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {}
+                Token::Function(name) => {}
                 // selector要素をすべて連結しとく
-                _ => {
-                },
+                _ => {}
             }
         }
 
@@ -103,7 +100,10 @@ impl<'a> Style<'a> {
                     if let Ok(assigns) = assigns_result {
                         dst.block_assigns[index].assigns = assigns;
                     } else {
-                        println!("[Error] Parser Error in parse_nested_block.{:?}", assigns_result);
+                        println!(
+                            "[Error] Parser Error in parse_nested_block.{:?}",
+                            assigns_result
+                        );
                         debug_assert!(false); // 基本は子要素もParseできるはず...
                     }
                     index = index + 1;
