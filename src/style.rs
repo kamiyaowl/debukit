@@ -49,8 +49,10 @@ impl<'a> Assign<'a> {
 }
 
 impl<'a> Style<'a> {
-    fn parse_assign(parser: &mut Parser<'a, 'a>) -> Option<Assign<'a>> {
+    fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
         let mut assign = Assign::new();
+
+        // TODO: Ident, Colon, Values, Semicolonの順序で分解
 
         if assign.keys.len() > 0 { Some(assign) } else { None }
     }
@@ -63,24 +65,43 @@ impl<'a> Style<'a> {
         let mut parser: Parser = Parser::new(&mut parser_in);
 
         // 先頭から順番に解析するだけ
-        let mut block_assign: BlockAssign<'a> = BlockAssign::new();
+        let mut index = 0;
 
         while let Ok(token) = parser.next() {
+            println!("#Token {:?} index:{}", token, index);
             match token {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
-                    debug_assert!(block_assign.selectors.len() > 0); // selectorは存在するはず
+                    debug_assert!(dst.block_assigns.len() > 0); // selectorが事前に一つ存在したはず
+                    debug_assert!(dst.block_assigns[0].selectors.len() > 0); // selectorは存在するはず
+                    
                     // 子要素を解析する
-                    // let nested: Result<(), cssparser::ParseError<'_, ()>>  =
-                    //     parser.parse_nested_block(|p: &mut Parser| Style::parse(p)); // TODO: error typeをまともにする
-                    // dst.block_assigns.push(block_assign);
+                    let assigns_result: Result<Vec<Assign<'a>>, cssparser::ParseError<'_, ()>>  =
+                        parser.parse_nested_block(|p: &mut Parser<'a, '_>| {
+                            let mut assigns: Vec<Assign<'a>> = Vec::new();
+                            while let Some(assign) = Style::parse_assign(p) {
+                                assigns.push(assign);
+                            }
+                            Ok(assigns)
+                        });
+                    // block_assignを完成させる
+                    if let Ok(assigns) = assigns_result {
+                        dst.block_assigns[index].assigns = assigns;
+                    } else {
+                        println!("[Error] Parser Error in parse_nested_block.{:?}", assigns_result);
+                        // debug_assert!(false); // 基本は子要素もParseできるはず... TODO: Assert有効化
+                    }
+                    index = index + 1;
                 },
                 Token::Function(name) => {
-                    println!("{:?}({})", token, name);
+                    println!("[Error] Function should not exist in selector.{:?}({})", token, name);
                     debug_assert!(false); // selectorにfunctionは存在しないはず...
                 }
                 // selector要素をすべて連結しとく
                 _ => {
-                    block_assign.selectors.push(token.clone());
+                    if index >= dst.block_assigns.len() {
+                        dst.block_assigns.push(BlockAssign::new());
+                    }
+                    dst.block_assigns[index].selectors.push(token.clone());
                 },
             }
         }
