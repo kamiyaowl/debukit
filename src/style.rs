@@ -56,14 +56,14 @@ impl<'a> Style<'a> {
 
     /// CSSのSelector含む1Blockを解析して返します
     /// 解析に失敗した場合、終端に達した場合はNoneが返ります
-    fn parse_block(parser: &mut Parser) -> Option<BlockAssign<'a>> {
+    fn parse_block(parser: &mut Parser<'a, 'a>) -> Option<BlockAssign<'a>> {
         let mut block_assign: BlockAssign<'a> = BlockAssign::new();
 
         while let Ok(token) = parser.next() {
             match token {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
                     debug_assert!(block_assign.selectors.len() > 0); // selectorは存在するはず
-                    // 子要素を再帰して解析する
+                    // 子要素を解析する
                     // let nested: Result<(), cssparser::ParseError<'_, ()>>  =
                     //     parser.parse_nested_block(|p: &mut Parser| Style::parse(p)); // TODO: error typeをまともにする
                 },
@@ -80,11 +80,10 @@ impl<'a> Style<'a> {
 
         if block_assign.selectors.len() > 0 { Some(block_assign) } else { None }
     }
-    pub fn new(css_text: &str) -> Self {
+    pub fn new(css_text: &'a str) -> Self {
         let mut dst = Style {
             block_assigns: Vec::new(),
         };
-
         let mut parser_in = ParserInput::new(css_text);
         let mut parser = Parser::new(&mut parser_in);
 
