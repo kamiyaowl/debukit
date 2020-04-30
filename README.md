@@ -1,5 +1,6 @@
 ![Rust](https://github.com/kamiyaowl/debukit/workflows/Rust/badge.svg)
 ![CommonTasks](https://github.com/kamiyaowl/debukit/workflows/CommonTasks/badge.svg)
+![CodeQuality](https://github.com/kamiyaowl/debukit/workflows/CodeQuality/badge.svg)
 
 # debukit
 
