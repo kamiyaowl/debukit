@@ -10,9 +10,7 @@ pub struct Dom {
 impl Dom {
     pub fn parse_all(html_text: &str) -> Self {
         let body = Html::parse_document(html_text);
-        Dom {
-            body: body,
-        }
+        Dom { body: body }
     }
 }
 
