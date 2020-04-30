@@ -1,0 +1,33 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CodeQuality
+
+# Controls when the action will run. Triggers the workflow on push or pull request
+# events but only for the master branch
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  check_clippy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2     
+    - name: rust-clippy-check
+      uses: actions-rs/clippy-check@v1.0.5
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+  check_rustfmt:
+    runs-on: ubuntu-latest
+    steps:
+    - name: checkout
+      uses: actions/checkout@v2     
+    - name: rust-rustfmt-check
+      uses: mbrobbel/rustfmt-check@0.2.0
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
