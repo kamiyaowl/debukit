@@ -66,7 +66,11 @@ impl<'a> Style<'a> {
             }
         }
 
-        if assign.keys.len() > 0 { Some(assign) } else { None }
+        if assign.keys.len() > 0 {
+            Some(assign)
+        } else {
+            None
+        }
     }
 
     pub fn new(css_text: &'a str) -> Self {
@@ -85,9 +89,9 @@ impl<'a> Style<'a> {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
                     debug_assert!(dst.block_assigns.len() > 0); // selectorが事前に一つ存在したはず
                     debug_assert!(dst.block_assigns[0].selectors.len() > 0); // selectorは存在するはず
-                    
+
                     // 子要素を解析する
-                    let assigns_result: Result<Vec<Assign<'a>>, cssparser::ParseError<'_, ()>>  =
+                    let assigns_result: Result<Vec<Assign<'a>>, cssparser::ParseError<'_, ()>> =
                         parser.parse_nested_block(|p: &mut Parser<'a, '_>| {
                             let mut assigns: Vec<Assign<'a>> = Vec::new();
                             while let Some(assign) = Style::parse_assign(p) {
@@ -103,9 +107,12 @@ impl<'a> Style<'a> {
                         debug_assert!(false); // 基本は子要素もParseできるはず...
                     }
                     index = index + 1;
-                },
+                }
                 Token::Function(name) => {
-                    println!("[Error] Function should not exist in selector.{:?}({})", token, name);
+                    println!(
+                        "[Error] Function should not exist in selector.{:?}({})",
+                        token, name
+                    );
                     debug_assert!(false); // selectorにfunctionは存在しないはず...
                 }
                 // selector要素をすべて連結しとく
@@ -114,13 +121,12 @@ impl<'a> Style<'a> {
                         dst.block_assigns.push(BlockAssign::new());
                     }
                     dst.block_assigns[index].selectors.push(token.clone());
-                },
+                }
             }
         }
 
         dst
     }
-
 }
 
 #[cfg(test)]
