@@ -53,6 +53,18 @@ impl<'a> Style<'a> {
         let mut assign = Assign::new();
 
         // TODO: Ident, Colon, Values, Semicolonの順序で分解
+        while let Ok(token) = parser.next() {
+            println!("#AssignToken {:?}", token);
+            match token {
+                Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
+                },
+                Token::Function(name) => {
+                }
+                // selector要素をすべて連結しとく
+                _ => {
+                },
+            }
+        }
 
         if assign.keys.len() > 0 { Some(assign) } else { None }
     }
@@ -88,7 +100,7 @@ impl<'a> Style<'a> {
                         dst.block_assigns[index].assigns = assigns;
                     } else {
                         println!("[Error] Parser Error in parse_nested_block.{:?}", assigns_result);
-                        // debug_assert!(false); // 基本は子要素もParseできるはず... TODO: Assert有効化
+                        debug_assert!(false); // 基本は子要素もParseできるはず...
                     }
                     index = index + 1;
                 },
