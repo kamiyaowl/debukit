@@ -26,23 +26,3 @@ jobs:
         TOKEN: ${{ secrets.GITHUB_TOKEN }}
         LABEL: "TODO:"
         COMMENT_MARKER: "#"
-        
-  check_clippy:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@v2     
-    - name: rust-clippy-check
-      uses: actions-rs/clippy-check@v1.0.5
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
-
-  check_rustfmt:
-    runs-on: ubuntu-latest
-    steps:
-    - name: checkout
-      uses: actions/checkout@v2     
-    - name: rust-rustfmt-check
-      uses: mbrobbel/rustfmt-check@0.2.0
-      with:
-        token: ${{ secrets.GITHUB_TOKEN }}
