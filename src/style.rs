@@ -71,8 +71,20 @@ impl<'a> Style<'a> {
                     return Some(assign);
                 }
                 // 要素ではないものは弾く
-                Token::Colon | Token::Comma | Token::IncludeMatch | Token::DashMatch | Token::PrefixMatch | Token::SuffixMatch | Token::CDO | Token::CDC | Token::ParenthesisBlock | Token::SquareBracketBlock | Token::CurlyBracketBlock | Token::CloseParenthesis | Token::CloseSquareBracket | Token::CloseCurlyBracket => {
-                }
+                Token::Colon
+                | Token::Comma
+                | Token::IncludeMatch
+                | Token::DashMatch
+                | Token::PrefixMatch
+                | Token::SuffixMatch
+                | Token::CDO
+                | Token::CDC
+                | Token::ParenthesisBlock
+                | Token::SquareBracketBlock
+                | Token::CurlyBracketBlock
+                | Token::CloseParenthesis
+                | Token::CloseSquareBracket
+                | Token::CloseCurlyBracket => {}
                 // 要素をすべて追加しておく
                 _ => {
                     assign.values.push(token.clone());
