@@ -1,6 +1,18 @@
 extern crate cssparser;
-use cssparser::BasicParseError;
 use cssparser::{Parser, ParserInput, Token};
+
+/// Styleseet適用優先順位を示します
+#[derive(Debug, Copy, Clone, PartialEq)]
+pub enum CascadeOrder {
+    /// ブラウザの宣言、一番優先度が低い
+    Browser,
+    /// ユーザーの宣言
+    /// 重要な宣言であればtrue、この場合製作者の内容よりも順位が高い
+    User(bool),
+    /// 製作者の宣言
+    /// 重要な宣言であればtrue
+    Maker(bool),
+}
 
 /// CSSを展開して、SelectorごとのStyle指定に置き換えた内容を保持します
 #[derive(Debug, Clone, PartialEq)]
@@ -15,6 +27,7 @@ pub struct Style<'a> {
 /// selector          assigns
 #[derive(Debug, Clone, PartialEq)]
 pub struct BlockAssign<'a> {
+    pub order: CascadeOrder,
     pub selectors: Vec<Token<'a>>,
     pub assigns: Vec<Assign<'a>>,
 }
@@ -22,6 +35,7 @@ pub struct BlockAssign<'a> {
 impl<'a> BlockAssign<'a> {
     pub fn new() -> Self {
         BlockAssign {
+            order: CascadeOrder::Browser, // デフォルトでは優先順序最低
             selectors: Vec::new(),
             assigns: Vec::new(),
         }
@@ -49,53 +63,7 @@ impl<'a> Assign<'a> {
 }
 
 impl<'a> Style<'a> {
-    fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
-        let mut is_set_key = false; // keyに値をセットしたらtrue
-        let mut assign: Assign<'a> = Assign::new();
-
-        // Ident, Colon, Values, Semicolonの順序で分解
-        while let Ok(token) = parser.next() {
-            match token {
-                Token::Ident(_) => {
-                    if !is_set_key {
-                        assign.key = token.clone();
-                        is_set_key = true;
-                    } else {
-                        // Tokenで方統一したいのでそのままぶっこんどく
-                        assign.values.push(token.clone());
-                    }
-                }
-                Token::Semicolon => {
-                    // 1要素の指定分は見終わったのでreturnする
-                    debug_assert!(is_set_key);
-                    return Some(assign);
-                }
-                // 要素ではないものは弾く
-                Token::Colon
-                | Token::Comma
-                | Token::IncludeMatch
-                | Token::DashMatch
-                | Token::PrefixMatch
-                | Token::SuffixMatch
-                | Token::CDO
-                | Token::CDC
-                | Token::ParenthesisBlock
-                | Token::SquareBracketBlock
-                | Token::CurlyBracketBlock
-                | Token::CloseParenthesis
-                | Token::CloseSquareBracket
-                | Token::CloseCurlyBracket => {}
-                // 要素をすべて追加しておく
-                _ => {
-                    assign.values.push(token.clone());
-                }
-            }
-        }
-
-        None
-    }
-
-    pub fn new(css_text: &'a str) -> Self {
+    pub fn new(css_text: &'a str, order: CascadeOrder) -> Self {
         let mut dst = Style {
             block_assigns: Vec::new(),
         };
@@ -145,17 +113,75 @@ impl<'a> Style<'a> {
                         dst.block_assigns.push(BlockAssign::new());
                     }
                     dst.block_assigns[index].selectors.push(token.clone()); // TODO: cloneで良いんだっけ, parse_assignも同様
+                    dst.block_assigns[index].order = order;
                 }
             }
         }
 
         dst
     }
+
+    pub fn merge(self: &mut Style<'a>, arg: &Style<'a>) {
+        for block_assign in &arg.block_assigns {
+            self.block_assigns.push(block_assign.clone());
+        }
+    }
+
+    pub fn add(self: &mut Style<'a>, block_assign: &BlockAssign<'a>) {
+        self.block_assigns.push(block_assign.clone());
+    }
+
+    fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
+        let mut is_set_key = false; // keyに値をセットしたらtrue
+        let mut assign: Assign<'a> = Assign::new();
+
+        // Ident, Colon, Values, Semicolonの順序で分解
+        while let Ok(token) = parser.next() {
+            match token {
+                Token::Ident(_) => {
+                    if !is_set_key {
+                        assign.key = token.clone();
+                        is_set_key = true;
+                    } else {
+                        // Tokenで方統一したいのでそのままぶっこんどく
+                        assign.values.push(token.clone());
+                    }
+                }
+                Token::Semicolon => {
+                    // 1要素の指定分は見終わったのでreturnする
+                    debug_assert!(is_set_key);
+                    return Some(assign);
+                }
+                // 要素ではないものは弾く
+                Token::Colon
+                | Token::Comma
+                | Token::IncludeMatch
+                | Token::DashMatch
+                | Token::PrefixMatch
+                | Token::SuffixMatch
+                | Token::CDO
+                | Token::CDC
+                | Token::ParenthesisBlock
+                | Token::SquareBracketBlock
+                | Token::CurlyBracketBlock
+                | Token::CloseParenthesis
+                | Token::CloseSquareBracket
+                | Token::CloseCurlyBracket => {}
+                // 要素をすべて追加しておく
+                _ => {
+                    assign.values.push(token.clone());
+                }
+            }
+        }
+
+        None
+    }
 }
 
 #[cfg(test)]
 mod tests {
     use super::Style;
+    use super::CascadeOrder;
 
     #[test]
     fn test_style_new() {
@@ -177,8 +203,11 @@ mod tests {
             table ~ p {
                 background-color: green;
             }
+            .canvas  {
+                z-index: 100;
+            }
         "#;
-        let style = Style::new(css_text);
+        let style = Style::new(css_text, CascadeOrder::Browser);
         println!("#Style\n{:#?}", style);
     }
 }
