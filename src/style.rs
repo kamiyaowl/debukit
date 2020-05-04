@@ -138,7 +138,10 @@ impl<'a> Style<'a> {
     /// これはパフォーマンス上の対策で、実際に適用する際はCascadeOrderに従って適用する必要があります
     pub fn sort_from_specificity(self: &mut Style<'a>) {
         // とりあえずselectorが多い順にしてある
-        self.block_assigns.sort_by(|a: &BlockAssign<'a>, b: &BlockAssign<'a>| a.assigns.len().cmp(&b.assigns.len()));
+        self.block_assigns
+            .sort_by(|a: &BlockAssign<'a>, b: &BlockAssign<'a>| {
+                a.assigns.len().cmp(&b.assigns.len())
+            });
     }
 
     fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
@@ -190,8 +193,8 @@ impl<'a> Style<'a> {
 
 #[cfg(test)]
 mod tests {
-    use super::Style;
     use super::CascadeOrder;
+    use super::Style;
 
     #[test]
     fn test_style_new() {
