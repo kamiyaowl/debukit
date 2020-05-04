@@ -35,14 +35,14 @@ impl<'a> BlockAssign<'a> {
 /// key     values
 #[derive(Debug, Clone, PartialEq)]
 pub struct Assign<'a> {
-    pub key: &'a str,
+    pub key: Token<'a>,
     pub values: Vec<Token<'a>>,
 }
 
 impl<'a> Assign<'a> {
     pub fn new() -> Self {
         Assign {
-            key: String::default(), // ありえない値に設定
+            key: Token::Colon, // ありえない値に設定
             values: Vec::new(),
         }
     }
@@ -53,27 +53,30 @@ impl<'a> Style<'a> {
         let mut is_set_key = false; // keyに値をセットしたらtrue
         let mut assign: Assign<'a> = Assign::new();
 
-        // TODO: Ident, Colon, Values, Semicolonの順序で分解
+        // Ident, Colon, Values, Semicolonの順序で分解
         while let Ok(token) = parser.next() {
-            println!("#AssignToken {:?}", token);
             match token {
-                Token::Ident(name) => {
+                Token::Ident(_) => {
                     if !is_set_key {
-                        assign.key = name;
+                        assign.key = token.clone();
+                        is_set_key = true;
                     } else {
                         // Tokenで方統一したいのでそのままぶっこんどく
                         assign.values.push(token.clone());
                     }
                 }
-                Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {}
-                Token::Function(name) => {}
                 Token::Semicolon => {
                     // 1要素の指定分は見終わったのでreturnする
                     debug_assert!(is_set_key);
                     return Some(assign);
                 }
-                // selector要素をすべて連結しとく
-                _ => {}
+                // 要素ではないものは弾く
+                Token::Colon | Token::Comma | Token::IncludeMatch | Token::DashMatch | Token::PrefixMatch | Token::SuffixMatch | Token::CDO | Token::CDC | Token::ParenthesisBlock | Token::SquareBracketBlock | Token::CurlyBracketBlock | Token::CloseParenthesis | Token::CloseSquareBracket | Token::CloseCurlyBracket => {
+                }
+                // 要素をすべて追加しておく
+                _ => {
+                    assign.values.push(token.clone());
+                }
             }
         }
 
@@ -91,7 +94,6 @@ impl<'a> Style<'a> {
         let mut index = 0;
 
         while let Ok(token) = parser.next() {
-            println!("#Token {:?} index:{}", token, index);
             match token {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
                     debug_assert!(dst.block_assigns.len() > 0); // selectorが事前に一つ存在したはず
@@ -165,6 +167,6 @@ mod tests {
             }
         "#;
         let style = Style::new(css_text);
-        println!("#Style\n{:?}", style);
+        println!("#Style\n{:#?}", style);
     }
 }
