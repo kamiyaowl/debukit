@@ -63,6 +63,7 @@ impl<'a> Assign<'a> {
 }
 
 impl<'a> Style<'a> {
+    /// テキストからStyle指定に変換します
     pub fn new(css_text: &'a str, order: CascadeOrder) -> Self {
         let mut dst = Style {
             block_assigns: Vec::new(),
@@ -121,14 +122,23 @@ impl<'a> Style<'a> {
         dst
     }
 
-    pub fn merge(self: &mut Style<'a>, arg: &Style<'a>) {
+    /// 他のStyle指定を取り込みます
+    pub fn concat(self: &mut Style<'a>, arg: &Style<'a>) {
         for block_assign in &arg.block_assigns {
             self.block_assigns.push(block_assign.clone());
         }
     }
 
+    /// BlockAssign指定ごと取り込みます、これはHTML上でのStyle属性等で指定された内容のマージに使用する想定です
     pub fn add(self: &mut Style<'a>, block_assign: &BlockAssign<'a>) {
         self.block_assigns.push(block_assign.clone());
+    }
+
+    /// 特異性に基づき、block_assignを並び替えます
+    /// これはパフォーマンス上の対策で、実際に適用する際はCascadeOrderに従って適用する必要があります
+    pub fn sort_from_specificity(self: &mut Style<'a>) {
+        // とりあえずselectorが多い順にしてある
+        self.block_assigns.sort_by(|a: &BlockAssign<'a>, b: &BlockAssign<'a>| a.assigns.len().cmp(&b.assigns.len()));
     }
 
     fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
