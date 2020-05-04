@@ -35,14 +35,14 @@ impl<'a> BlockAssign<'a> {
 /// key     values
 #[derive(Debug, Clone, PartialEq)]
 pub struct Assign<'a> {
-    pub keys: Vec<Token<'a>>, // 多分要素1にしかならない
+    pub key: &'a str,
     pub values: Vec<Token<'a>>,
 }
 
 impl<'a> Assign<'a> {
     pub fn new() -> Self {
         Assign {
-            keys: Vec::new(),
+            key: String::default(), // ありえない値に設定
             values: Vec::new(),
         }
     }
@@ -50,24 +50,34 @@ impl<'a> Assign<'a> {
 
 impl<'a> Style<'a> {
     fn parse_assign(parser: &mut Parser<'a, '_>) -> Option<Assign<'a>> {
-        let mut assign = Assign::new();
+        let mut is_set_key = false; // keyに値をセットしたらtrue
+        let mut assign: Assign<'a> = Assign::new();
 
         // TODO: Ident, Colon, Values, Semicolonの順序で分解
         while let Ok(token) = parser.next() {
             println!("#AssignToken {:?}", token);
             match token {
+                Token::Ident(name) => {
+                    if !is_set_key {
+                        assign.key = name;
+                    } else {
+                        // Tokenで方統一したいのでそのままぶっこんどく
+                        assign.values.push(token.clone());
+                    }
+                }
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {}
                 Token::Function(name) => {}
+                Token::Semicolon => {
+                    // 1要素の指定分は見終わったのでreturnする
+                    debug_assert!(is_set_key);
+                    return Some(assign);
+                }
                 // selector要素をすべて連結しとく
                 _ => {}
             }
         }
 
-        if assign.keys.len() > 0 {
-            Some(assign)
-        } else {
-            None
-        }
+        None
     }
 
     pub fn new(css_text: &'a str) -> Self {
@@ -120,7 +130,7 @@ impl<'a> Style<'a> {
                     if index >= dst.block_assigns.len() {
                         dst.block_assigns.push(BlockAssign::new());
                     }
-                    dst.block_assigns[index].selectors.push(token.clone());
+                    dst.block_assigns[index].selectors.push(token.clone()); // TODO: cloneで良いんだっけ, parse_assignも同様
                 }
             }
         }
