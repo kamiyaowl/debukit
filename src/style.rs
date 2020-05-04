@@ -68,7 +68,7 @@ impl<'a> Style<'a> {
         let mut dst = Style {
             block_assigns: Vec::new(),
         };
-        let mut parser_in: ParserInput = ParserInput::new(css_text.clone());
+        let mut parser_in: ParserInput = ParserInput::new(css_text);
         let mut parser: Parser = Parser::new(&mut parser_in);
 
         // 先頭から順番に解析するだけ
@@ -77,8 +77,8 @@ impl<'a> Style<'a> {
         while let Ok(token) = parser.next() {
             match token {
                 Token::ParenthesisBlock | Token::CurlyBracketBlock | Token::SquareBracketBlock => {
-                    debug_assert!(dst.block_assigns.len() > 0); // selectorが事前に一つ存在したはず
-                    debug_assert!(dst.block_assigns[0].selectors.len() > 0); // selectorは存在するはず
+                    debug_assert!(!dst.block_assigns.is_empty()); // selectorが事前に一つ存在したはず
+                    debug_assert!(!dst.block_assigns[0].selectors.is_empty()); // selectorは存在するはず
 
                     // 子要素を解析する
                     let assigns_result: Result<Vec<Assign<'a>>, cssparser::ParseError<'_, ()>> =
@@ -99,7 +99,7 @@ impl<'a> Style<'a> {
                         );
                         debug_assert!(false); // 基本は子要素もParseできるはず...
                     }
-                    index = index + 1;
+                    index += 1;
                 }
                 Token::Function(name) => {
                     println!(
