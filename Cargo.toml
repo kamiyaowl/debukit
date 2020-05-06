@@ -9,3 +9,4 @@ reqwest = { version = "0.10", features = ["blocking", "json"] }
 tokio = { version = "0.2", features = ["full"] }
 scraper = "0.11.0"
 cssparser = "0.27.2"
+orbtk = { git = "https://github.com/redox-os/orbtk.git", branch = "develop" }
